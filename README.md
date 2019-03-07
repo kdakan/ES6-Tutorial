@@ -1,4 +1,5 @@
-# ES6 Features
+# ES6 Tutorial
+--------------
 This is a tutorial on the ES6 (and some ES8) additions to javascript. The examples run without need for transpiling, on the F12 developer tools console of a recent version Chrome browser.
 
 ## Scoped variables:
