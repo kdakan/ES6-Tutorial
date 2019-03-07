@@ -1,6 +1,6 @@
 # ES6 Tutorial
 --------------
-This is a tutorial on the ES6 (and some ES8) additions to javascript. The examples run without need for transpiling, on the F12 developer tools console of a recent version Chrome browser.
+This is a tutorial on the ES6 (and some ES8) additions to javascript. The examples can run directly on the Chrome developer console, without transpiling to ES5.
 
 ## Scoped variables:
 * ```let n = 1;``` defines a block scoped variable, where a block is enclosed by ```{``` and ```}```, it is only visible inside the block, and it cannot be declared again inside the same block.
