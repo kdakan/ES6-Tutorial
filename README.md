@@ -6,13 +6,14 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
 * ```let n = 1;``` defines a block scoped variable, where a block is enclosed by ```{``` and ```}```, it is only visible inside the block, and it cannot be declared again inside the same block.
   ```let``` can be used like
   ```js
+  let someCondition = true;
   if (someCondition) {
     let n = 1;
   }
   ```
   where n is only visible inside the if block but not outside
-* In ```es5```, ```var n = 1;``` defines a function scoped variable which is hoisted (its declaration is moved to top of the function declaring it, or becomes global if not declared inside a function), and var can define the same variable multiple times inside the same function but the last declaration will be effective, which can cause problems and it is not recommended to use var anymore
-* ```const n = 1;``` defines a block scoped variable, and its reference cannot be changes, meaning it cannot be reassigned. However, if it is an object, so it is not immutable so that its members can be reassigned,  like
+* In ```es5```, ```var n = 1;``` defines a function scoped variable which is hoisted (its declaration is moved to top of the function declaring it, or becomes global if not declared inside a function), and var can define the same variable multiple times inside the same function but the last declaration will take effect, which can cause problems and it is not recommended to use var anymore
+* ```const n = 1;``` defines a block scoped variable, and its reference cannot be changed, meaning that it cannot be reassigned. However, a ```const``` object is not immutable, because its members can be reassigned, like
   ```js
   {
     const o = {n: 1, s: "abc"};
@@ -20,18 +21,19 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
     o.s = "xyz";
   }
   ```
-  ```Object.freeze()``` can be used to turn it into an immutable object, or ```immutable.js``` library can be used with more handy features
+  If we need immutable objects, ```Object.freeze()``` or ```immutable.js``` library can be used with more handy features
   
 ## Destructuring:
-* Destructuring uses ```[``` and ```]``` to assign multiple variables at once from an array, and ```{``` and ```}``` to assign multiple variables at once from object fields , like
+* Destructuring uses ```[``` and ```]``` to assign multiple variables at once from an array, and ```{``` and ```}``` to assign multiple variables at once from object fields, like
   ```js
-  let [x, y] = [3, 5]; //x is 3, y is 5
-  [x, y] = [y, x,]; //x value becomes y, y value becomes x
-  let [, a, b, c] = [1, 3, 5]; //a is 3, b is 5, c is undefined, skips first element in the right-side array
+  let [x, y] = [3, 5]; //x=3, y=5
+  [x, y] = [y, x,]; //x any y are swapped, x value becomes y, y value becomes x
+  let [, a, b, c] = [1, 3, 5]; //skips first element in the right-side array, a=3, b=5, c=undefined
   
-  let {p, r, s} = {p: 3, r: 5, s: "abc"}; //p is 3, r is 5, s is "abc"
-  let {p:k, s:l} = {p: 3, r: 5, s: "abc"}; //k is 3, r is "abc", and beware that it is not k:p, but rather p:k
-  let {m, n} = {m: 3, n: "abc"}; //m is 3, n is "abc", shorthand syntax when the variables and object fields have the same name
+  let {p, r, s} = {p: 3, r: 5, s: "abc"}; //p=3, r=5, s="abc"
+  let {p:k, s:l} = {p: 3, r: 5, s: "abc"}; //k=3, r="abc", beware the weird ordering, that it is not k:p, but rather p:k
+  let {m, n} = {m: 3, n: "abc"}; //m=3, n="abc", shorthand syntax when the variables and object fields have the same name
+  
   let f = function(x, {y, z}, n) {
     //do something with x, y, z, n parameters
   }
@@ -44,14 +46,14 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   let f = function(x = 1) {
     //no need to use let y = x || 1; to give a default value of 1 if x is missing
   }
-  f(); //missing parameter x will be assigned default value of 1, same as f(undefined);
-  f(null); //parameter x will be assigned null, because it is not missing
-  f(""); //parameter x will be assigned "", because it is not missing
+  f(); //missing parameter x=default value of 1, same as f(undefined);
+  f(null); //parameter x=null, because it is not missing
+  f(""); //parameter x="", because it is not missing
   
   let g = function(x = 1, {y = 2, z = 3}) {
     //do something with x, y, z parameters
   }
-  g(7, {z: 9}); //missing parameter y will be assigned default value of 2
+  g(7, {z: 9}); //missing parameter y=default value of 2
   ```
   
 ## Rest parameters:
@@ -60,7 +62,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   let sum = function(x, y, ...rest) {
     //here you can use rest parameter as an array
   }
-  let total = sum("a", "b", 5, 7, 4, 67, 38); //rest parameter will be [5, 7, 4, 67, 38]
+  let total = sum("a", "b", 5, 7, 4, 67, 38); //parameter rest=[5, 7, 4, 67, 38]
   ```
   
 ## Spread operator:
@@ -72,7 +74,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   f(...[3, 5, 7]); //call f() with parameters x=3, y=5, z=7
   
   let a = [3, 5, 7];
-  let a = [20, 40, ...a, 60, 80]; //a is [20, 40, 3, 5, 7, 60, 80]
+  let b = [20, 40, ...a, 60, 80]; //b=[20, 40, 3, 5, 7, 60, 80]
   ```
   
 ## Template literals:
@@ -80,7 +82,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   ```js
   let id = 123;
   let domain = "abc.com";
-  let url = `https://${domain}/item/${id}`; // url is "https://abc.com/item/123"
+  let url = `https://${domain}/item/${id}`; //url="https://abc.com/item/123"
   ```
   
 ## Classes:
@@ -108,7 +110,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   }
   
   var emp = new Employee("John", "Doe");
-  emp.work(8); //logs to the console "John Doe is working for 8 hours."
+  emp.work(8); //prints "John Doe is working for 8 hours."
   ```
   is similar to the ```es5``` version
   ```js
@@ -132,7 +134,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   };
   
   var emp = new Employee("John", "Doe");
-  emp.work(8); //logs to the console "John Doe is working for 8 hours."
+  emp.work(8); //prints "John Doe is working for 8 hours."
   ```
 * A class can ```extend``` (inherit from) a super class, like
   ```js
@@ -151,7 +153,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   }
   
   var emp = new Employee("Manager", "John", "Doe");
-  console.log(emp.title + " " + emp.firstname + " " + emp.lastname); //logs to the console "Manager John Doe"
+  console.log(emp.title + " " + emp.firstname + " " + emp.lastname); //prints "Manager John Doe"
   ```
   
 ## Arrow functions:
@@ -162,20 +164,20 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   let add2 = (x, y) => {
     return x + y;
   }
-  let sum = add(1, 2); //sum is 3
-  let sum2 = add(1, 2); //sum2 is 3
+  let sum = add(1, 2); //sum=3
+  let sum2 = add(1, 2); //sum2=3
   //single parameter
   let square = x => x * x;
-  let sqr = square(2); //sqr is 4
+  let sqr = square(2); //sqr=4
   //parameterless
   let three = () => 3;
-  let x = three(); //x is 3
+  let x = three(); //x=3
   
   let arr = [1, 2, 3];
   let total = 0;
-  arr.forEach(x => total += x); //total is 6
-  let doubles = arr.map(x => x * 2); //doubles is [2, 4, 6]
-  let odds = arr.filter(x => x % 2 === 1); //odds is [1, 3]
+  arr.forEach(x => total += x); //total=6
+  let doubles = arr.map(x => x * 2); //doubles=[2, 4, 6]
+  let odds = arr.filter(x => x % 2 === 1); //odds=[1, 3]
   ```
 * Arrow functions use lexical scoping, thus when used as a callback function, ```this``` from the outside is visible inside the arrow function, unlike the normal callback functions declared with ```function``` keyword, like
   ```js
@@ -198,9 +200,9 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   
   let m = new MyClass();
   m.sumWithArrowFunction();
-  console.log(m.total); //m.total is 6
+  console.log(m.total); //m.total=6
   m.sumWithoutArrowFunction();
-  console.log(m.total); //m.total is 6
+  console.log(m.total); //m.total=6
   ```
   
 ## Generators and iterators:
@@ -216,7 +218,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   for (let n of numbers(3))
     console.log("got " + n);
   ```
-  Here the ```for..of``` loop logs to the console yield 0, got 0, yield 1, got 1, yield 2, got 2, so the numbers are iterated lazily. This can be valuable when the iterator is doing expensive work like an expensive calculation, going to the database, or using network operations
+  Here the ```for..of``` loop prints "yield 0", "got 0", "yield "1, "got 1", "yield 2", "got 2", so the numbers are iterated lazily. This can be valuable when the iterator is doing expensive work like an expensive calculation, going to the database, or using network operations
   
 ## New builtin objects:
 * There are new objects, like ```Number```, ```Array```, ```Set``` (hashset), ```Map``` (hashmap/dictionary), ```WeakSet```, ```WeakMap```. ```WeakSet``` and ```WeakMap``` do not hold strong pointers to their items, so that the item can be garbage collected, and they cannot be iterated. Using ```WeakMap``` and ```WeakSet``` instead of ```Map``` and ```Set``` can prevent memory leaks.
@@ -357,7 +359,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   .then(company => console.log(company.name))
   .catch(error => console.log(error.message));
   ```
-  This code above will log to the console "MyCompany" after 3 seconds (```getOrder()```, ```getUser()```, and ```getCompany()``` each takes 1 second to complete). If we change ```getUser()``` to the following code,
+  This code above will print "MyCompany" after 3 seconds (```getOrder()```, ```getUser()```, and ```getCompany()``` each takes 1 second to complete). If we change ```getUser()``` to the following code,
   ```js
   function getUser(userId) {
     //returns a Promise, starts a time taking operation and rejects with an Error result when the operation fails
@@ -366,7 +368,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
     });
   }
   ```
-  Then the same ```getOrder(123).then(...).then(...).then(...).catch(...)``` chain call will log to the console "An error occured while fetching user with id: 456" after 2 seconds
+  Then the same ```getOrder(123).then(...).then(...).then(...).catch(...)``` chain call will print "An error occured while fetching user with id: 456" after 2 seconds
 * ```Promise.all()``` resolves multiple promises, and ```Promise.race()``` resolves the fastest completing promise, like
   ```js
   function getCompany(companyId) {
@@ -392,7 +394,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   .then(companies => companies.forEach(company => console.log(company.name)))
   .catch(error => console.log(error.message));
   ```
-  This code above will log to the console all 5 company names after 1 second (each call to getCompany() takes 1 second, but calls are done in parallel). If we change ```getCompany()``` to the following code,
+  This code above will print all 5 company names after 1 second (each call to getCompany() takes 1 second, but calls are done in parallel). If we change ```getCompany()``` to the following code,
   ```js
   function getCompany(companyId) {
     //returns a Promise, starts a time taking operation and rejects with an Error result when the operation fails
@@ -401,7 +403,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
     });
   }
   ```
-  Then the same ```Promise.all(promises).then(...).catch(...)``` chain call will log to the console "An error occured while fetching company with id: 1" after 1 second. The code below will log to the console "Apple" after 1 second, like
+  Then the same ```Promise.all(promises).then(...).catch(...)``` chain call will print "An error occured while fetching company with id: 1" after 1 second. The code below will print "Apple" after 1 second, like
   ```js
   let promises = [getCompany(1), getCompany(2), getCompany(3), getCompany(4), getCompany(5)];
   Promise.race(promises)
@@ -426,17 +428,17 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
  fetch('https://api.github.com/users/KrunalLathiya')
  .then(response => response.json())
  .then(data => {
-   console.log(data) // Prints result from `response.json()` in getRequest
+   console.log(data) //prints result from `response.json()` in getRequest
  })
  .catch(error => console.error(error))
 
  //cors
  fetch('https://api.github.com/users/KrunalLathiya', {
-   credentials: 'include', // Useful for including session ID (and, IIRC, authorization headers)
+   credentials: 'include', //useful for including session ID (and, IIRC, authorization headers)
  })
  .then(response => response.json())
  .then(data => {
-   console.log(data) // Prints result from `response.json()`
+   console.log(data) //prints result from `response.json()`
  })
  .catch(error => console.error(error));
  
@@ -454,13 +456,13 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
  fetch('https://appdividend.com/api/v1/users', {
    credentials: 'same-origin', // 'include', default: 'omit'
    method: 'POST', // 'GET', 'PUT', 'DELETE', etc.
-   body: JSON.stringify({user: 'Krunal'}), // Coordinate the body type with 'Content-Type'
+   body: JSON.stringify({user: 'Krunal'}), //coordinate the body type with 'Content-Type'
    headers: new Headers({
      'Content-Type': 'application/json'
    }),
  })
  .then(response => response.ok() response.json())
- .then(data => console.log(data)) // Result from the `response.json()` call
+ .then(data => console.log(data)) //result from the `response.json()` call
  .catch(error => console.error(error))
 
  //delete data
@@ -479,8 +481,8 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
  formData.append('username', 'abc123')
  formData.append('avatar', fileField.files[0])
  fetch('https://appdividend.com/api/v1/users', {
-   method: 'POST', // 'GET', 'PUT', 'DELETE', etc.
-   body: formData  // Coordinate the body type with 'Content-Type'
+   method: 'POST', //'GET', 'PUT', 'DELETE', etc.
+   body: formData  //coordinate the body type with 'Content-Type'
  })
  .then(response => response.json())
  
@@ -490,11 +492,11 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
  const fileFields = document.querySelectorAll('input[type="file"].files')
  // Add all files to formData```
  [].forEach.call(fileFields.files, f => formData.append('files', f))
- // Alternatively for PHP peeps, use `files[]` for the name to support arrays
- // Array.prototype.forEach.call(fileFields.files, f => formData.append('files[]', f))
+ //alternatively for PHP peeps, use `files[]` for the name to support arrays
+ //Array.prototype.forEach.call(fileFields.files, f => formData.append('files[]', f))
  fetch('https://appdividend.com/api/v1/users', {
-   method: 'POST', // 'GET', 'PUT', 'DELETE', etc.
-   body: formData  // Coordinate the body type with 'Content-Type'
+   method: 'POST', //'GET', 'PUT', 'DELETE', etc.
+   body: formData  //coordinate the body type with 'Content-Type'
  })
  .then(response => response.json())
  .then(data => console.log(data))
