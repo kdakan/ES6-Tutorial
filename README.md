@@ -1,6 +1,6 @@
 # ES6 Tutorial
 --------------
-This is a tutorial on the ES6 (and some ES8) additions to javascript. The examples can run directly on the Chrome developer console, without transpiling to ES5.
+This is a tutorial on the ES6 (and some ES8) additions to javascript. You can run the examples directly on the Chrome developer console, without any transpiling.
 
 ## Scoped variables:
 * ```let n = 1;``` defines a block scoped variable, where a block is enclosed by ```{``` and ```}```, it is only visible inside the block, and it cannot be declared again inside the same block.
@@ -220,8 +220,8 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   ```
   Here the ```for..of``` loop prints "yield 0", "got 0", "yield "1, "got 1", "yield 2", "got 2", so the numbers are iterated lazily. This can be valuable when the iterator is doing expensive work like an expensive calculation, going to the database, or using network operations
   
-## New builtin objects:
-* There are new objects, like ```Number```, ```Array```, ```Set``` (hashset), ```Map``` (hashmap/dictionary), ```WeakSet```, ```WeakMap```. ```WeakSet``` and ```WeakMap``` do not hold strong pointers to their items, so that the item can be garbage collected, and they cannot be iterated. Using ```WeakMap``` and ```WeakSet``` instead of ```Map``` and ```Set``` can prevent memory leaks.
+## New built-in objects:
+* There are new built-in objects, like ```Number```, ```Array```, ```Set``` (hashset), ```Map``` (hashmap/hashtable/dictionary), ```WeakSet```, ```WeakMap```. ```WeakSet``` and ```WeakMap``` do not hold strong pointers to their items, so that the item can be garbage collected, and they cannot be iterated. Using ```WeakMap``` and ```WeakSet``` instead of ```Map``` and ```Set``` can prevent memory leaks.
 
 ## Object.assign() (mixins):
 * ```Object.assign(o1, o2)``` merges members of o2 onto o1 (o2 is also called mixin), ```Object.assign()``` can have more than 2 parameters, and will merge all into the first parameter object
@@ -243,6 +243,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   let car4 = { [fieldname] : fieldvalue }
   
   ```
+  
 ## ES6 modules:
 * A module can be declared by using ```export``` inside the file ```Customer.js``` in the ```crm```` folder, like
   ```js
@@ -411,7 +412,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. The exampl
   .catch(error => console.log(error.message));
   ```
   
-## async/await (ES8), and Promise:
+## async/await (ES8):
 * ```async``` function wraps its return value in a Promise object, so ```async f() {... return 123;}``` is the same as ```f() {... return new Promise(...resolve(123)...);}```
 * This is similar to a C# async method returning a ```Task<int> object``` wrapping its return value of type ```int```
 * await resolves a Promise object, so await p resolves the Promise object p, and await f() resolves the Promise returned by function f()
