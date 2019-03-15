@@ -2,6 +2,24 @@
 --------------
 This is a tutorial on the ES6 (and some ES8) additions to javascript. You can run the examples directly on the Chrome developer console, without any transpiling.
 
+## Table of contents
+* [Scoped variables](#scoped-variables)
+* [Destructuring](#destructuring)
+* [Default parameters](#default-parameters)
+* [Rest parameters](#rest-parameters)
+* [Spread operator](#spread-operator)
+* [Template literals](#template-literals)
+* [Classes](#classes)
+* [Arrow functions](#arrow-functions)
+* [Generators and iterators](#generators-and-iterators)
+* [New built-in objects](#new-built-in-objects)
+* [Object.assign() (mixins)](#object.assign()-(mixins))
+* [Object literal shortcuts](#object-literal-shortcuts)
+* [ES6 modules](#es6-modules)
+* [Promises](#promises)
+* [Async/await (ES8)](#async/await-(es8))
+* [Fetch api examples](#fetch-api-examples)
+
 ## Scoped variables:
 * ```let n = 1;``` defines a block scoped variable, where a block is enclosed by ```{``` and ```}```, it is only visible inside the block, and it cannot be declared again inside the same block.
   ```let``` can be used like
@@ -412,7 +430,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   .catch(error => console.log(error.message));
   ```
   
-## async/await (ES8):
+## Async/await (ES8):
 * ```async``` function wraps its return value in a Promise object, so ```async f() {... return 123;}``` is the same as ```f() {... return new Promise(...resolve(123)...);}```
 * This is similar to a C# async method returning a ```Task<int> object``` wrapping its return value of type ```int```
 * await resolves a Promise object, so await p resolves the Promise object p, and await f() resolves the Promise returned by function f()
@@ -424,83 +442,83 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
  
 ## Fetch api examples:
 * Refer to https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch for more details and examples
- ```jsx
- //basic get
- fetch('https://api.github.com/users/KrunalLathiya')
- .then(response => response.json())
- .then(data => {
-   console.log(data) //prints result from `response.json()` in getRequest
- })
- .catch(error => console.error(error))
+  ```jsx
+  //basic get
+  fetch('https://api.github.com/users/KrunalLathiya')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data) //prints result from `response.json()` in getRequest
+  })
+  .catch(error => console.error(error))
 
- //cors
- fetch('https://api.github.com/users/KrunalLathiya', {
-   credentials: 'include', //useful for including session ID (and, IIRC, authorization headers)
- })
- .then(response => response.json())
- .then(data => {
-   console.log(data) //prints result from `response.json()`
- })
- .catch(error => console.error(error));
+  //cors
+  fetch('https://api.github.com/users/KrunalLathiya', {
+    credentials: 'include', //useful for including session ID (and, IIRC, authorization headers)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data) //prints result from `response.json()`
+  })
+  .catch(error => console.error(error));
  
- //post data
- fetch('https://jsonplaceholder.typicode.com/users', {
-   headers: { "Content-Type": "application/json; charset=utf-8" },
-   method: 'POST',
-   body: JSON.stringify({
-     username: 'Elon Musk',
-     email: 'elonmusk@gmail.com',
-   })
- })
+  //post data
+  fetch('https://jsonplaceholder.typicode.com/users', {
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+    method: 'POST',
+    body: JSON.stringify({
+      username: 'Elon Musk',
+      email: 'elonmusk@gmail.com',
+    })
+  })
   
- //post data
- fetch('https://appdividend.com/api/v1/users', {
-   credentials: 'same-origin', // 'include', default: 'omit'
-   method: 'POST', // 'GET', 'PUT', 'DELETE', etc.
-   body: JSON.stringify({user: 'Krunal'}), //coordinate the body type with 'Content-Type'
-   headers: new Headers({
-     'Content-Type': 'application/json'
-   }),
- })
- .then(response => response.ok() response.json())
- .then(data => console.log(data)) //result from the `response.json()` call
- .catch(error => console.error(error))
+  //post data
+  fetch('https://appdividend.com/api/v1/users', {
+    credentials: 'same-origin', // 'include', default: 'omit'
+    method: 'POST', // 'GET', 'PUT', 'DELETE', etc.
+    body: JSON.stringify({user: 'Krunal'}), //coordinate the body type with 'Content-Type'
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+  })
+  .then(response => response.ok() response.json())
+  .then(data => console.log(data)) //result from the `response.json()` call
+  .catch(error => console.error(error))
 
- //delete data
- fetch('https://jsonplaceholder.typicode.com/users/1', { 
-   method: 'DELETE' 
- });
+  //delete data
+  fetch('https://jsonplaceholder.typicode.com/users/1', { 
+    method: 'DELETE' 
+  });
 
- //use async/await
- let res = await fetch('https://api.github.com/users/KrunalLathiya');
- let data = await res.json();
- console.log(data);
+  //use async/await
+  let res = await fetch('https://api.github.com/users/KrunalLathiya');
+  let data = await res.json();
+  console.log(data);
  
- //upload file
- const formData = new FormData()
- const fileField = document.querySelector('input[type="file"].avatar')
- formData.append('username', 'abc123')
- formData.append('avatar', fileField.files[0])
- fetch('https://appdividend.com/api/v1/users', {
-   method: 'POST', //'GET', 'PUT', 'DELETE', etc.
-   body: formData  //coordinate the body type with 'Content-Type'
- })
- .then(response => response.json())
+  //upload file
+  const formData = new FormData()
+  const fileField = document.querySelector('input[type="file"].avatar')
+  formData.append('username', 'abc123')
+  formData.append('avatar', fileField.files[0])
+  fetch('https://appdividend.com/api/v1/users', {
+    method: 'POST', //'GET', 'PUT', 'DELETE', etc.
+    body: formData  //coordinate the body type with 'Content-Type'
+  })
+  .then(response => response.json())
  
- //upload multiple files
- <input type='file' multiple class='files' name='files' />
- const formData = new FormData()
- const fileFields = document.querySelectorAll('input[type="file"].files')
- // Add all files to formData```
- [].forEach.call(fileFields.files, f => formData.append('files', f))
- //alternatively for PHP peeps, use `files[]` for the name to support arrays
- //Array.prototype.forEach.call(fileFields.files, f => formData.append('files[]', f))
- fetch('https://appdividend.com/api/v1/users', {
-   method: 'POST', //'GET', 'PUT', 'DELETE', etc.
-   body: formData  //coordinate the body type with 'Content-Type'
- })
- .then(response => response.json())
- .then(data => console.log(data))
- .catch(error => console.error(error))
- ```
+  //upload multiple files
+  <input type='file' multiple class='files' name='files' />
+  const formData = new FormData()
+  const fileFields = document.querySelectorAll('input[type="file"].files')
+  // Add all files to formData```
+  [].forEach.call(fileFields.files, f => formData.append('files', f))
+  //alternatively for PHP peeps, use `files[]` for the name to support arrays
+  //Array.prototype.forEach.call(fileFields.files, f => formData.append('files[]', f))
+  fetch('https://appdividend.com/api/v1/users', {
+    method: 'POST', //'GET', 'PUT', 'DELETE', etc.
+    body: formData  //coordinate the body type with 'Content-Type'
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+  ```
  
