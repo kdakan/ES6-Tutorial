@@ -13,11 +13,11 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
 * [Arrow functions](#arrow-functions)
 * [Generators and iterators](#generators-and-iterators)
 * [New built-in objects](#new-built-in-objects)
-* [Object.assign() (mixins)](#object.assign()-(mixins))
+* [Object.assign() (mixins)](#objectassign-mixins)
 * [Object literal shortcuts](#object-literal-shortcuts)
 * [ES6 modules](#es6-modules)
 * [Promises](#promises)
-* [Async/await (ES8)](#async/await-(es8))
+* [Async/await (ES8)](#asyncawait-es8)
 * [Fetch api examples](#fetch-api-examples)
 
 ## Scoped variables:
