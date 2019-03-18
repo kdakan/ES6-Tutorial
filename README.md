@@ -12,7 +12,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
 * [Classes](#classes)
 * [Arrow functions](#arrow-functions)
 * [Generators and iterators](#generators-and-iterators)
-* [New built-in objects](#new-built-in-objects)
+* [Built-in objects](#built-in-objects)
 * [Object.assign() (mixins)](#objectassign-mixins)
 * [Object literal shortcuts](#object-literal-shortcuts)
 * [ES6 modules](#es6-modules)
@@ -238,8 +238,19 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   ```
   Here the ```for..of``` loop prints "yield 0", "got 0", "yield "1, "got 1", "yield 2", "got 2", so the numbers are iterated lazily. This can be valuable when the iterator is doing expensive work like an expensive calculation, going to the database, or using network operations
   
-## New built-in objects:
-* There are new built-in objects, like ```Number```, ```Array```, ```Set``` (hashset), ```Map``` (hashmap/hashtable/dictionary), ```WeakSet```, ```WeakMap```. ```WeakSet``` and ```WeakMap``` do not hold strong pointers to their items, so that the item can be garbage collected, and they cannot be iterated. Using ```WeakMap``` and ```WeakSet``` instead of ```Map``` and ```Set``` can prevent memory leaks.
+## Built-in objects:
+* There are new built-in objects and objects with new additional methods, like ```Number```, ```Array```, ```Set``` (hashset), ```Map``` (hashmap/hashtable/dictionary), ```WeakSet```, ```WeakMap```. ```WeakSet``` and ```WeakMap``` do not hold strong pointers to their items, so that the item can be garbage collected, and they cannot be iterated. Using ```WeakMap``` and ```WeakSet``` instead of ```Map``` and ```Set``` can prevent memory leaks.
+
+* Some examples of new ```Array``` methods:
+  ```js
+  let array = [1, 5, 10, 20];
+  let a = array.find(item => item > 3); //returns first match, 5
+  let ind = array.findIndex(item => item > 3); //returns index of first match, 1
+  array.fill('a'); //fills array with 'a', array becomes  ['a', 'a', 'a, 'a']
+  array.fill('x', 2, 3) // fills with 'x' starting from index 2 to 3 (excluding 3), array becomes ['a', 'a', 'x, 'a']
+  let array2 = new Array(3); //creates array of length 3 with empty (undefined) items
+  let array3 = Array.of(1, 2, 3); //array3=[1, 2, 3]
+  let array4 = Array.from(document.querySelectorAll('div')); //creates araay from a non-array DOM object collection 
 
 ## Object.assign() (mixins):
 * ```Object.assign(o1, o2)``` merges members of o2 onto o1 (o2 is also called mixin), ```Object.assign()``` can have more than 2 parameters, and will merge all into the first parameter object
@@ -261,8 +272,43 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   let car4 = { [fieldname] : fieldvalue }
   
   ```
+## Proxies:
+* ```Proxy``` is a wrapper around an object, and lets us intercept getting and setting properties, and also intercept calling methods on the wrapped (proxied) object.
+* We can use a ```Proxy``` for getters and setters, like
+  ```
+  let horse = {
+    color: 'white',
+    hasTail: true
+  }
   
+  let proxyHorse = new Proxy(horse, {
+    get: function(target, property) {
+      if(property === 'color')
+        return 'Brilliant ' + target[property];
+      else
+        return target[property];
+    },
+    set: function(target, property, value) {
+      if (property === 'hasTail' && value === false)
+        console.log('You cannot set it to false!');
+      else
+        target[property] = value;
+    },
+    apply: function(target, context, args) {
+      if(context !== unicorn)
+        return "Only unicorn can use hornAttack";
+      else
+        return target.apply(context, args);
+    }
+  });
+  
+  console.log(proxyHorse.color) //prints "Brilliant white"
+  proxyHorse.hasTail = false; //does not set hasTail to false, instead prints "You cannot set it to false!"
+  ```
+* We can also intercept calls to ```apply```, ```delete```, ```define```, ```freeze```, ```in```, ```has```, etc.
+
 ## ES6 modules:
+* Before ES6, there were several module systems and libraries to support them, like ```AMD``` modules and ```CommonJS``` modules. ES6 module system is a standard based on and similar to the ```CommonJS``` system.
 * A module can be declared by using ```export``` inside the file ```Customer.js``` in the ```crm```` folder, like
   ```js
   chargeCreditCard(cardNumber, amount) {
@@ -343,7 +389,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   
   export default VIPCustomer;
   ```
-  and import and use it with any name we want, like
+  and import it and use it with any name we want, like
   ```js
   import Customer from './crm/VIPCustomer';
   
@@ -378,7 +424,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   .then(company => console.log(company.name))
   .catch(error => console.log(error.message));
   ```
-  This code above will print "MyCompany" after 3 seconds (```getOrder()```, ```getUser()```, and ```getCompany()``` each takes 1 second to complete). If we change ```getUser()``` to the following code,
+  This code above will print "MyCompany" after 3 seconds (```getOrder()```, ```getUser()```, and ```getCompany()``` each takes 1 second to complete). Note that ```.catch(error => console.log(error.message))``` works the same way as ```.then(undefined, error => console.log(error.message))``` does, but cleaner semantics. If we change ```getUser()``` to the following code,
   ```js
   function getUser(userId) {
     //returns a Promise, starts a time taking operation and rejects with an Error result when the operation fails
@@ -388,7 +434,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   }
   ```
   Then the same ```getOrder(123).then(...).then(...).then(...).catch(...)``` chain call will print "An error occured while fetching user with id: 456" after 2 seconds
-* ```Promise.all()``` resolves multiple promises, and ```Promise.race()``` resolves the fastest completing promise, like
+* ```Promise.all()``` resolves multiple promises, like
   ```js
   function getCompany(companyId) {
     let companies = {
@@ -422,7 +468,8 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
     });
   }
   ```
-  Then the same ```Promise.all(promises).then(...).catch(...)``` chain call will print "An error occured while fetching company with id: 1" after 1 second. The code below will print "Apple" after 1 second, like
+  Then the same ```Promise.all(promises).then(...).catch(...)``` chain call will print "An error occured while fetching company with id: 1" after 1 second. 
+* ```Promise.race()``` resolves the fastest completing promise. The following code will print "Apple" after 1 second, like
   ```js
   let promises = [getCompany(1), getCompany(2), getCompany(3), getCompany(4), getCompany(5)];
   Promise.race(promises)
