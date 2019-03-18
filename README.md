@@ -15,6 +15,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
 * [Built-in objects](#built-in-objects)
 * [Object.assign() (mixins)](#objectassign-mixins)
 * [Object literal shortcuts](#object-literal-shortcuts)
+* [Proxies](#proxies)
 * [ES6 modules](#es6-modules)
 * [Promises](#promises)
 * [Async/await (ES8)](#asyncawait-es8)
@@ -275,7 +276,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
 ## Proxies:
 * ```Proxy``` is a wrapper around an object, and lets us intercept getting and setting properties, and also intercept calling methods on the wrapped (proxied) object.
 * We can use a ```Proxy``` for getters and setters, like
-  ```
+  ```js
   let horse = {
     color: 'white',
     hasTail: true
