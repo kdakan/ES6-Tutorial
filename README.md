@@ -309,8 +309,25 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
 * We can also intercept calls to ```apply```, ```delete```, ```define```, ```freeze```, ```in```, ```has```, etc.
 
 ## ES6 modules:
-* Before ES6, there were several module systems and libraries to support them, like ```AMD``` modules and ```CommonJS``` modules. ES6 module system is a standard based on and similar to the ```CommonJS``` system.
-* A module can be declared by using ```export``` inside the file ```Customer.js``` in the ```crm```` folder, like
+* Before ES6, there were several module systems and libraries to support them, like ```AMD``` modules and ```CommonJS``` modules. ES6 module syntax is similar to the ```CommonJS``` syntax.
+* A module can be declared by using ```export``` and accessed from another module by using  ```import```. There are two kinds of exports, named export and default export. A module can "named export" from nothing to multiple things and "default export" either nothing or one thing, like
+  ```js
+  //inside lib.js
+  export function add(x, y) { return x + y; }
+  export const multiply = (x, y) => { x * y }
+  export class ComplexNumber { ... }
+  export default const PI = 3.1459...;
+  
+  //inside app.js
+  import * as mathlib from './lib.js'
+  let sum = mathlib.add(1, 2);
+  
+  import piNumber, { add, ComplexNumber } from './lib.js'
+  let sum = add(1, piNumber);
+  let c = new ComplexNumber(1, 2);
+  ```
+  We should use ```{``` and ```}``` when accessing a named export. Think of all named exports as part of an export object (as it was like this with CommonJS modules), an in a similar fashion, we can import every named exports into an object, as in the example ```import * as mathlib from './lib.js'```. The ```as``` keyword can be used both when exporting named exports and also when importing named exports. We should not use ```{``` and ```}``` when accessing a default export.
+* A module can be declared by using ```export``` inside the file ```Customer.js``` in the ```crm``` folder, like
   ```js
   chargeCreditCard(cardNumber, amount) {
     //chargeCreditCard() is inaccessible from outside this module
