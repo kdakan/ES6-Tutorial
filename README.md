@@ -1,4 +1,4 @@
-https://kdakan.github.io/ES6-Tutorial/
+[https://kdakan.github.io/ES6-Tutorial/](https://kdakan.github.io/ES6-Tutorial/)
 
 # ES6 Tutorial
 --------------
