@@ -1,3 +1,5 @@
+https://kdakan.github.io/ES6-Tutorial/
+
 # ES6 Tutorial
 --------------
 This is a tutorial on the ES6 (and some ES8) additions to javascript. You can run the examples directly on the Chrome developer console, without any transpiling.
