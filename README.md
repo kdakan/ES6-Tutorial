@@ -3,25 +3,25 @@
 This is a tutorial on the ES6 (and some ES8) additions to javascript. You can run the examples directly on the Chrome developer console, without any transpiling.
 
 ## Table of contents
-* [Scoped variables](#scoped-variables)
-* [Destructuring](#destructuring)
-* [Default parameters](#default-parameters)
-* [Rest parameters](#rest-parameters)
-* [Spread operator](#spread-operator)
-* [Template literals](#template-literals)
-* [Classes](#classes)
-* [Arrow functions](#arrow-functions)
-* [Generators and iterators](#generators-and-iterators)
-* [Built-in objects](#built-in-objects)
-* [Object.assign() (mixins)](#objectassign-mixins)
-* [Object literal shortcuts](#object-literal-shortcuts)
-* [Proxies](#proxies)
-* [ES6 modules](#es6-modules)
-* [Promises](#promises)
-* [Async/await (ES8)](#asyncawait-es8)
-* [Fetch api examples](#fetch-api-examples)
+* [ 1. Scoped variables](#1-scoped-variables)
+* [ 2. Destructuring](#2-destructuring)
+* [ 3. Default parameters](#3-default-parameters)
+* [ 4. Rest parameters](#4-rest-parameters)
+* [ 5. Spread operator](#5-spread-operator)
+* [ 6. Template literals](#6-template-literals)
+* [ 7. Classes](#7-classes)
+* [ 8. Arrow functions](#8-arrow-functions)
+* [ 9. Generators and iterators](#9-generators-and-iterators)
+* [10. Built-in objects](#10-built-in-objects)
+* [11. Object.assign() (mixins)](#11-objectassign-mixins)
+* [12. Object literal shortcuts](#12-object-literal-shortcuts)
+* [13. Proxies](#13-proxies)
+* [14. ES6 modules](#14-es6-modules)
+* [15. Promises](#15-promises)
+* [16. Async/await (ES8)](#16-asyncawait-es8)
+* [17. Fetch api examples](#17-fetch-api-examples)
 
-## Scoped variables:
+## 1. Scoped variables:
 * ```let n = 1;``` defines a block scoped variable, where a block is enclosed by ```{``` and ```}```, it is only visible inside the block, and it cannot be declared again inside the same block.
   ```let``` can be used like
   ```js
@@ -42,7 +42,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   ```
   If we need immutable objects, ```Object.freeze()``` or ```immutable.js``` library can be used with more handy features
   
-## Destructuring:
+## 2. Destructuring:
 * Destructuring uses ```[``` and ```]``` to assign multiple variables at once from an array, and ```{``` and ```}``` to assign multiple variables at once from object fields, like
   ```js
   let [x, y] = [3, 5]; //x=3, y=5
@@ -59,7 +59,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   f(1, {y: 2, z: "abc"}); //call function f() with x=1, y=2, z="abc", n=undefined parameter values
   ```
   
-## Default parameters:
+## 3. Default parameters:
 * Parameters can be assigned default values, like
   ```js
   let f = function(x = 1) {
@@ -75,7 +75,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   g(7, {z: 9}); //missing parameter y=default value of 2
   ```
   
-## Rest parameters:
+## 4. Rest parameters:
 * Rest parameters, which is an array, replace the need for ```arguments``` (```arguments``` can also be used, but it is an object, not an array). Rest parameters use ```...someVariables``` syntax, like
   ```js
   let sum = function(x, y, ...rest) {
@@ -84,7 +84,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   let total = sum("a", "b", 5, 7, 4, 67, 38); //parameter rest=[5, 7, 4, 67, 38]
   ```
   
-## Spread operator:
+## 5. Spread operator:
 * Spread operator ```...someArray```, turns an array into a comma separated expression, like
   ```js
   let f = function(x, y, z) {
@@ -96,7 +96,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   let b = [20, 40, ...a, 60, 80]; //b=[20, 40, 3, 5, 7, 60, 80]
   ```
   
-## Template literals:
+## 6. Template literals:
 * Template literals are used for concatenating strings, like
   ```js
   let id = 123;
@@ -104,7 +104,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   let url = `https://${domain}/item/${id}`; //url="https://abc.com/item/123"
   ```
   
-## Classes:
+## 7. Classes:
 * Classes support constructor, methods, and property getters and setters, like
   ```js
   class Employee {
@@ -175,7 +175,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   console.log(emp.title + " " + emp.firstname + " " + emp.lastname); //prints "Manager John Doe"
   ```
   
-## Arrow functions:
+## 8. Arrow functions:
 * Arrow functions are the preferred way to define callback functions and short functions, and offer a shorthand syntax, like
   ```js
   //add() and add2() do the same thing
@@ -224,7 +224,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   console.log(m.total); //m.total=6
   ```
   
-## Generators and iterators:
+## 9. Generators and iterators:
 * Generator functions create iterators, and iterables can be lazily iterated using for..of syntax, like
   ```js
   let numbers = function*(max) {
@@ -239,7 +239,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   ```
   Here the ```for..of``` loop prints "yield 0", "got 0", "yield "1, "got 1", "yield 2", "got 2", so the numbers are iterated lazily. This can be valuable when the iterator is doing expensive work like an expensive calculation, going to the database, or using network operations
   
-## Built-in objects:
+## 10. Built-in objects:
 * There are new built-in objects and objects with new additional methods, like ```Number```, ```Array```, ```Set``` (hashset), ```Map``` (hashmap/hashtable/dictionary), ```WeakSet```, ```WeakMap```. ```WeakSet``` and ```WeakMap``` do not hold strong pointers to their items, so that the item can be garbage collected, and they cannot be iterated. Using ```WeakMap``` and ```WeakSet``` instead of ```Map``` and ```Set``` can prevent memory leaks.
 
 * Some examples of new ```Array``` methods:
@@ -253,10 +253,10 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   let array3 = Array.of(1, 2, 3); //array3=[1, 2, 3]
   let array4 = Array.from(document.querySelectorAll('div')); //creates araay from a non-array DOM object collection 
 
-## Object.assign() (mixins):
+## 11. Object.assign() (mixins):
 * ```Object.assign(o1, o2)``` merges members of o2 onto o1 (o2 is also called mixin), ```Object.assign()``` can have more than 2 parameters, and will merge all into the first parameter object
 
-## Object literal shortcuts:
+## 12. Object literal shortcuts:
 * Object literal shortcut syntax can be used, like
   ```js
   let model = "Porche";
@@ -273,7 +273,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   let car4 = { [fieldname] : fieldvalue }
   
   ```
-## Proxies:
+## 13. Proxies:
 * ```Proxy``` is a wrapper around an object, and lets us intercept getting and setting properties, and also intercept calling methods on the wrapped (proxied) object.
 * We can use a ```Proxy``` for getters and setters, like
   ```js
@@ -308,7 +308,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   ```
 * We can also intercept calls to ```apply```, ```delete```, ```define```, ```freeze```, ```in```, ```has```, etc.
 
-## ES6 modules:
+## 14. ES6 modules:
 * Before ES6, there were several module systems and libraries to support them, like ```AMD``` modules and ```CommonJS``` modules. ES6 module syntax is similar to the ```CommonJS``` syntax.
 * A module can be declared by using ```export``` and accessed from another module by using  ```import```. There are two kinds of exports, named export and default export. A module can "named export" from nothing to multiple things and "default export" either nothing or one thing, like
   ```js
@@ -414,7 +414,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   let customer = new Customer();
   ```
   
-## Promises:
+## 15. Promises:
 * An ```async``` functions does not return is result immediately, but instead returns a ```Promise``` object. A ```Promise``` object can be in 3 states, it starts in ```pending``` state, and when/if it ```resolve```s it switches to ```fulfilled``` state, and when/if an error occurs, it switches to ```rejected``` state. Promises can be chained, like 
   ```js
   function getOrder(orderId) {
@@ -495,7 +495,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   .catch(error => console.log(error.message));
   ```
   
-## Async/await (ES8):
+## 16. Async/await (ES8):
 * ```async``` function wraps its return value in a Promise object, so ```async f() {... return 123;}``` is the same as ```f() {... return new Promise(...resolve(123)...);}```
 * This is similar to a C# async method returning a ```Task<int> object``` wrapping its return value of type ```int```
 * await resolves a Promise object, so await p resolves the Promise object p, and await f() resolves the Promise returned by function f()
@@ -505,7 +505,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
 * To run two async functions in parallel, you cannot use ```await f1(); await f2();```, instead either use ```Promise.all()``` or ```p1 = f1(); p2 = f2(); await p1; await p2;``` (starts f1() and f2() and resolves both later
 * Refer to https://medium.freecodecamp.org/avoiding-the-async-await-hell-c77a0fb71c4c for more details
  
-## Fetch api examples:
+## 17. Fetch api examples:
 * Refer to https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch for more details and examples
   ```jsx
   //basic get
