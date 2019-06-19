@@ -21,7 +21,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
 * [14. ES6 modules](#14-es6-modules)
 * [15. Promises](#15-promises)
 * [16. Async/await (ES8)](#16-asyncawait-es8)
-* [17. Fetch api examples](#17-fetch-api-examples)
+* [17. Fetch API examples](#17-fetch-api-examples)
 
 ## 1. Scoped variables:
 * ```let n = 1;``` defines a block scoped variable, where a block is enclosed by ```{``` and ```}```, it is only visible inside the block, and it cannot be declared again inside the same block.
@@ -33,7 +33,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   }
   ```
   where n is only visible inside the if block but not outside
-* In ```es5```, ```var n = 1;``` defines a function scoped variable which is hoisted (its declaration is moved to top of the function declaring it, or becomes global if not declared inside a function), and var can define the same variable multiple times inside the same function but the last declaration will take effect, which can cause problems and it is not recommended to use var anymore
+* In ```es5```, ```var n = 1;``` defines a function-scoped variable which is hoisted (its declaration is moved to top of the function declaring it, or becomes global if not declared inside a function), and var can define the same variable multiple times inside the same function but the last declaration will take effect, which can cause problems and it is not recommended to use var anymore
 * ```const n = 1;``` defines a block scoped variable, and its reference cannot be changed, meaning that it cannot be reassigned. However, a ```const``` object is not immutable, because its members can be reassigned, like
   ```js
   {
@@ -87,7 +87,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   ```
   
 ## 5. Spread operator:
-* Spread operator ```...someArray```, turns an array into a comma separated expression, like
+* Spread operator ```...someArray```, turns an array into a comma-separated expression, like
   ```js
   let f = function(x, y, z) {
     //do something with x, y, z parameters
@@ -328,7 +328,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   let sum = add(1, piNumber);
   let c = new ComplexNumber(1, 2);
   ```
-  We should use ```{``` and ```}``` when accessing a named export. Think of all named exports as part of an export object (as it was like this with CommonJS modules), an in a similar fashion, we can import every named exports into an object, as in the example ```import * as mathlib from './lib.js'```. The ```as``` keyword can be used both when exporting named exports and also when importing named exports. We should not use ```{``` and ```}``` when accessing a default export.
+  We should use ```{``` and ```}``` when accessing a named export. Think of all named exports as part of an export object (as it was like this with CommonJS modules), an in a similar fashion, we can import every named export into an object, as in the example ```import * as mathlib from './lib.js'```. The ```as``` keyword can be used both when exporting named exports and also when importing named exports. We should not use ```{``` and ```}``` when accessing a default export.
 * A module can be declared by using ```export``` inside the file ```Customer.js``` in the ```crm``` folder, like
   ```js
   chargeCreditCard(cardNumber, amount) {
@@ -417,7 +417,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
   ```
   
 ## 15. Promises:
-* An ```async``` functions does not return is result immediately, but instead returns a ```Promise``` object. A ```Promise``` object can be in 3 states, it starts in ```pending``` state, and when/if it ```resolve```s it switches to ```fulfilled``` state, and when/if an error occurs, it switches to ```rejected``` state. Promises can be chained, like 
+* An ```async``` function does not return it's result immediately, but instead returns a ```Promise``` object. A ```Promise``` object can be in 3 states, it starts in ```pending``` state, and when/if it ```resolve```s it switches to ```fulfilled``` state, and when/if an error occurs, it switches to ```rejected``` state. Promises can be chained, like 
   ```js
   function getOrder(orderId) {
     //returns a Promise, starts a time taking operation and resolves with the result when the operation succeeds
@@ -507,7 +507,7 @@ This is a tutorial on the ES6 (and some ES8) additions to javascript. You can ru
 * To run two async functions in parallel, you cannot use ```await f1(); await f2();```, instead either use ```Promise.all()``` or ```p1 = f1(); p2 = f2(); await p1; await p2;``` (starts f1() and f2() and resolves both later
 * Refer to https://medium.freecodecamp.org/avoiding-the-async-await-hell-c77a0fb71c4c for more details
  
-## 17. Fetch api examples:
+## 17. Fetch API examples:
 * Refer to https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch for more details and examples
   ```jsx
   //basic get
